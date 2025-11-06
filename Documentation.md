@@ -40,7 +40,7 @@
 # Idées
 ### 1. Génération de fiche de personnage (NPC) pour DnD
 * **Framework** : [Pytorch](https://pytorch.org/)
-* **Type d'AI** : VAE-GAN
+* **Type d'AI** : Transformer
 * **Language de programation** : Python
 * **Application** : Page web simple (Flask)
 * **Dataset** : [5e monster](https://gist.github.com/tkfu/9819e4ac6d529e225e9fc58b358c3479)
