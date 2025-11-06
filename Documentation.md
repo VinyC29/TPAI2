@@ -45,5 +45,3 @@
 1. Idées pour le projet
 
 # Conclusion et retour d'expérience
-
-
