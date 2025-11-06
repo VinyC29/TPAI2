@@ -1,7 +1,7 @@
 # Introduction
 
 # Idées
-### 1. Génération de fiche de personnage (npc) pour DnD
+### 1. Génération de fiche de personnage (NPC) pour DnD
 * **Framework** : [Pytorch](https://pytorch.org/)
 * **Type d'AI** : VAE-GAN
 * **Language de programation** : Python
