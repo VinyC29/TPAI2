@@ -1,7 +1,6 @@
 import math
 import torch
 import torch.nn as nn
-from sympy import false
 
 
 class InputEmbeddings(nn.Module):
@@ -28,15 +27,29 @@ class PositionalEncoding(nn.Module):
         pe = torch.zeros(seq_len, d_model)
         # Create a vector of shape (seq_len) (Seq_Len, 1)
         position = torch.arange(0, seq_len, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0)/ d_model))
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
         # Apply the sin to even positions
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
 
-        pe = pe.unsqueeze(0) #(1, seq_len, d_model)
+        pe = pe.unsqueeze(0)  # (1, seq_len, d_model)
 
         self.register_buffer('pe', pe)
 
     def forward(self, x):
         x = x + (self.pe[:, :x.shape[1], :]).requires_grad_(False)
-        return  self.dropout(x)
+        return self.dropout(x)
+
+
+class LayerNormalization(nn.Module):
+
+    def __init__(self, eps: float = 10 ** -6) -> None:
+        super().__init__()
+        self.eps = eps
+        self.alpha = nn.Parameter(torch.ones(1))  # Multiplied
+        self.bias = nn.Parameter(torch.zeros(1))  # Added
+
+    def forward(self, x):
+        mean = x.mean(dim=-1, keepdim=True)
+        std = x.std(dim=-1, keepdim=True)
+        return self.alpha * (x - mean) / (std + self.eps) + self.bias
